@@ -1,19 +1,33 @@
-import pytest
-from utils.api_client import client, APIClient
+#1.用户登录接口
+import requests
 
+# 接口地址
+BASE_URL = "http://127.0.0.1:8787"
+LOGIN_URL = BASE_URL + "/da/user/login"
 
-class TestLogin:
-    """登录接口测试"""
+# 请求参数（根据文档示例）
+payload = {
+    "user_name": "test01",
+    "passwd": "admin123"
+}
 
-    def test_login_success(self):
-        """测试登录成功"""
-        result = client.login("test01", "admin123")
-        assert result == True
-        assert client.token is not None
+# 请求头（表单提交）
+headers = {
+    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+}
 
-    def test_login_fail(self):
-        """测试登录失败"""
-        # 创建新客户端，避免影响其他测试
-        temp_client = APIClient()
-        result = temp_client.login("wrong_user", "wrong_pass")
-        assert result == False
+# 发送POST请求
+response = requests.post(LOGIN_URL, data=payload, headers=headers)
+
+# 打印响应结果
+print("状态码:", response.status_code)
+print("响应内容:", response.text)
+
+# 如果返回JSON，可以解析
+if response.status_code == 200:
+    result = response.json()
+    print("\n===== 解析结果 =====")
+    print("msg:", result.get("msg"))
+    print("msg_code:", result.get("msg_code"))
+    print("error_code:", result.get("error_code"))
+    print("token:", result.get("token"))
