@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 测试报告
+reports/
+htmlcov/
+.tox/
+.coverage
+.pytest_cache/
+
+# 项目特定
+*.log
+*.db
+.DS_Store
